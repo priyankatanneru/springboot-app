@@ -26,11 +26,12 @@ pipeline {
 
         stage('SonarQube') {
             steps {
+                def mvnHome = tool 'Maven3'
                 withSonarQubeEnv('sonarqube') {
                     sh '''
-                    mvn sonar:sonar \
+                    ${mvnHome}/bin/mvn sonar:sonar \
                         -Dsonar.host.url=http://sonarqube:9000 \
-                        -Dsonar.login=$SONAR_AUTH_TOKEN
+                        -Dsonar.login=$sonar-token
                    '''
                 }
             }
