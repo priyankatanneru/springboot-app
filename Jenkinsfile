@@ -10,7 +10,8 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/priyankatanneru/springboot-app.git'
+                sh 'echo passed'
+                //git 'https://github.com/priyankatanneru/springboot-app.git'
             }
         }
 
