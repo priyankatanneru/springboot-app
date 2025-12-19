@@ -26,8 +26,11 @@ pipeline {
 
         stage('SonarQube') {
             steps {
-                withSonarQubeEnv('sonarqube') {
-                    sh 'mvn sonar:sonar'
+                script {
+                    def mvnHome = tool 'Maven3'
+                    withSonarQubeEnv('sonarqube') {
+                        sh "${mvnHome}/bin/mvn sonar:sonar"
+                    }
                 }
             }
         }
