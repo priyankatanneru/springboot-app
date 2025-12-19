@@ -18,7 +18,7 @@ pipeline {
         stage('Build & Test') {
             steps {
                 sh 'ls -ltr'
-                sh 'cd springboot-app && mvn clean package'
+                sh 'mvn clean package'
             }
         }
 
