@@ -28,7 +28,7 @@ pipeline {
                 script {
                     def mvnHome = tool 'Maven3'
                     withSonarQubeEnv('sonarqube') {
-                        sh "${mvnHome}/bin/mvn sonar:sonar -Dsonar.projectKey=springboot-app
+                        sh "${mvnHome}/bin/mvn sonar:sonar -Dsonar.projectKey=springboot-app"
                     
                     }
                 }
