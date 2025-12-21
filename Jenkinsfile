@@ -78,8 +78,9 @@ pipeline {
                 	git commit -m "Update image to $TAG" || echo "No changes to commit"
 	                git push https://$GIT_USER:$GIT_PASS@github.com/priyankatanneru/springboot-k8s-manifests.git main
         	    '''
-            }
-        }
-    }
+                }
+             }
+         }
+     }
 }
 
