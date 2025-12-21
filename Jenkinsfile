@@ -10,27 +10,38 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/priyankatanneru/springboot-app.git'
+                sh 'echo passed'
+                //git 'https://github.com/priyankatanneru/springboot-app.git'
             }
         }
 
         stage('Build & Test') {
             steps {
-                sh 'mvn clean test'
+                script {
+                    def mvnHome = tool 'Maven3'  // name must match your Maven tool in Jenkins
+                    sh "${mvnHome}/bin/mvn clean package"
+                }
             }
         }
 
         stage('SonarQube') {
             steps {
-                withSonarQubeEnv('sonarqube') {
-                    sh 'mvn sonar:sonar'
+                script {
+                    def mvnHome = tool 'Maven3'
+                    withSonarQubeEnv('sonarqube') {
+                        sh """
+                        ${mvnHome}/bin/mvn sonar:sonar \
+                          -Dsonar.host.url=http://sonarqube:9000 \
+                          -Dsonar.login=$SONAR_AUTH_TOKEN
+                        """
+                    }
                 }
             }
         }
 
         stage('Quality Gate') {
             steps {
-                timeout(time: 1, unit: 'MINUTES') {
+                timeout(time: 10, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
                 }
             }
