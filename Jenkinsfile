@@ -43,12 +43,20 @@ pipeline {
         }
 
         stage('Docker Build & Push') {
-            steps {
-                sh """
-                docker build -t $IMAGE:$TAG .
-                docker push $IMAGE:$TAG
-                """
-            }
+           steps {
+              withCredentials([usernamePassword(
+              credentialsId: 'dockerhub-creds',
+              usernameVariable: 'DOCKER_USER',
+              passwordVariable: 'DOCKER_PASS'
+              )]) {
+                  sh """
+                  echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                  docker build -t $IMAGE:$TAG .
+                  docker push $IMAGE:$TAG
+                  docker logout
+                  """
+             }
+          }
         }
 
         stage('Update Manifests Repo') {
