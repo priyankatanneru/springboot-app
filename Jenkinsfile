@@ -66,6 +66,8 @@ pipeline {
                 branch: 'main'
 
                 sh '''
+                    git config user.email "tannerupriyanka712@gmail.com"
+                    git config user.name "priyankatanneru"
                     sed -i 's/tag:.*/tag: "$TAG"/' helm/values.yaml
                     git add .
                     git commit -m "Update image to $TAG"
