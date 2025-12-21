@@ -70,14 +70,14 @@ pipeline {
                 usernameVariable: 'GIT_USER', 
                 passwordVariable: 'GIT_PASS'
                 )]) {
-                    sh '''
+                    sh """
                         git config user.email "tannerupriyanka712@gmail.com"
                 	git config user.name "priyankatanneru"
                 	sed -i 's/tag:.*/tag: ${TAG}/' helm/values.yaml
                 	git add .
                 	git commit -m "Update image to $TAG" || echo "No changes to commit"
 	                git push https://$GIT_USER:$GIT_PASS@github.com/priyankatanneru/springboot-k8s-manifests.git main
-        	    '''
+        	    """
                 }
              }
          }
