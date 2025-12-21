@@ -28,9 +28,8 @@ pipeline {
                 script {
                     def mvnHome = tool 'Maven3'
                     withSonarQubeEnv('sonarqube') {
-                        withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
-                            sh "${mvnHome}/bin/mvn sonar:sonar -Dsonar.host.url=http://172.17.0.3:9000 -Dsonar.login=$SONAR_TOKEN"
-                       }
+                        sh "${mvnHome}/bin/mvn sonar:sonar -Dsonar.projectKey=springboot-app
+                    
                     }
                 }
             }
