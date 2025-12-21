@@ -31,7 +31,7 @@ pipeline {
                         withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
                             sh """
                             ${mvnHome}/bin/mvn sonar:sonar
-                            -Dsonar.host.url=http://crazy_maxwell:9000
+                            -Dsonar.host.url=http://sonarqube:9000
                             -Dsonar.login=$SONAR_TOKEN
                             """
                        }
