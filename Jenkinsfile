@@ -71,7 +71,7 @@ pipeline {
                     sed -i 's/tag:.*/tag: "$TAG"/' helm/values.yaml
                     git add .
                     git commit -m "Update image to $TAG"
-                    git push
+                    git push --set-upstream origin main
                 '''
             }
         }
