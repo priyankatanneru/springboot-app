@@ -62,14 +62,15 @@ pipeline {
         stage('Update Manifests Repo') {
             steps {
                 git credentialsId: 'github-creds',
-                    url: 'https://github.com/priyankatanneru/springboot-k8s-manifests.git'
+                url: 'https://github.com/priyankatanneru/springboot-k8s-manifests.git',
+                branch: 'main'
 
-                sh """
-                sed -i 's/tag:.*/tag: "$TAG"/' helm/values.yaml
-                git add .
-                git commit -m "Update image to $TAG"
-                git push
-                """
+                sh '''
+                    sed -i 's/tag:.*/tag: "$TAG"/' helm/values.yaml
+                    git add .
+                    git commit -m "Update image to $TAG"
+                    git push
+                '''
             }
         }
     }
