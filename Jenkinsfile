@@ -23,24 +23,22 @@ pipeline {
                 }
             }
         }
-
         stage('SonarQube') {
-		steps {
-        		script {
-            			def mvnHome = tool 'Maven3'
-            			withSonarQubeEnv('sonarqube') {
-                			withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
-                    				sh """
-                    		${mvnHome}/bin/mvn sonar:sonar \
-                      -Dsonar.host.url=http://localhost:9000 \
-                      -Dsonar.login=$SONAR_TOKEN
-                    """
+            steps {
+                script {
+                    def mvnHome = tool 'Maven3'
+                    withSonarQubeEnv('sonarqube') {
+                        withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+                            sh """
+                            ${mvnHome}/bin/mvn sonar:sonar
+                            -Dsonar.host.url=http://localhost:9000
+                            -Dsonar.login=$SONAR_TOKEN
+                            """
+                       }
+                    }
                 }
             }
         }
-    }
-}
-
         stage('Quality Gate') {
             steps {
                 timeout(time: 10, unit: 'MINUTES') {
