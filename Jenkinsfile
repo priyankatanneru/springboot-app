@@ -25,16 +25,19 @@ pipeline {
         }
 		stage('SonarQube') {
     		steps {
-        		withSonarQubeEnv('sonarqube') {
-            	sh """
-            	sonar-scanner \
-	              -Dsonar.projectKey=springboot-app \
-	              -Dsonar.projectName=springboot-app \
-	              -Dsonar.sources=src/main/java \
-	              -Dsonar.tests=src/test/java \
-	              -Dsonar.java.binaries=target/classes \
-	              -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
-            	"""
+		        script {
+		            def scannerHome = tool 'SonarScanner'
+		            withSonarQubeEnv('sonarqube') {
+		                sh """
+                		${scannerHome}/bin/sonar-scanner \
+		                  -Dsonar.projectKey=springboot-app \
+		                  -Dsonar.projectName=springboot-app \
+		                  -Dsonar.sources=src/main/java \
+		                  -Dsonar.tests=src/test/java \
+		                  -Dsonar.java.binaries=target/classes \
+		                  -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+                		"""
+            		}
         		}
     		}
 		}
