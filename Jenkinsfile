@@ -19,7 +19,7 @@ pipeline {
             steps {
                 script {
                     def mvnHome = tool 'Maven3'  // name must match your Maven tool in Jenkins
-                    sh "${mvnHome}/bin/mvn clean package"
+                    sh "${mvnHome}/bin/mvn clean"
                 }
             }
         }
