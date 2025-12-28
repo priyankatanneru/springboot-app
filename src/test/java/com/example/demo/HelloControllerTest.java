@@ -21,7 +21,7 @@ class HelloControllerTest {
     void testHelloEndpoint() throws Exception {
         mockMvc.perform(get("/hello"))
                .andExpect(status().isOk())
-               .andExpect(content().string("Hello from DevOps CI/CD Pipeline"));
+               .andExpect(content().string("Hello from DevOps CI/CD Pipeline!!"));
     }
 }
 
