@@ -60,7 +60,7 @@
                 <version>0.8.10</version>
                 <configuration>
                       <excludes>
-                          <exclude>**/DemoApplication.class</exclude>
+                          <exclude>**/DemoApplication.java</exclude>
                       </excludes>
                 </configuration>
                 <executions>
