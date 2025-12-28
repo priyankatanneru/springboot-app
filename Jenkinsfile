@@ -30,8 +30,10 @@ pipeline {
                     withSonarQubeEnv('sonarqube') {
                         sh """
                 		${mvnHome}/bin/mvn sonar:sonar \
-                  			-Dsonar.projectKey=springboot-app
-                		"""                
+                  			-Dsonar.projectKey=springboot-app \
+                  			-Dsonar.java.binaries=target/classes \
+                  			-Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+                		"""            
                     }
                 }
             }
