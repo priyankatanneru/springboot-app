@@ -24,20 +24,20 @@ pipeline {
             }
         }
 		stage('SonarQube') {
-            steps {
-                script {
-                    def mvnHome = tool 'Maven3'
-                    withSonarQubeEnv('sonarqube') {
-                        sh """
-                		${mvnHome}/bin/mvn sonar:sonar \
-                  			-Dsonar.projectKey=springboot-app \
-                  			-Dsonar.java.binaries=target/classes \
-                  			-Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
-                		"""            
-                    }
-                }
-            }
-        }
+    		steps {
+        		withSonarQubeEnv('sonarqube') {
+            	sh """
+            	sonar-scanner \
+	              -Dsonar.projectKey=springboot-app \
+	              -Dsonar.projectName=springboot-app \
+	              -Dsonar.sources=src/main/java \
+	              -Dsonar.tests=src/test/java \
+	              -Dsonar.java.binaries=target/classes \
+	              -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+            	"""
+        		}
+    		}
+		}
 		
 		
 	}
