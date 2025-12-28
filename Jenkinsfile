@@ -23,6 +23,19 @@ pipeline {
                 }
             }
         }
+		stage('SonarQube') {
+            steps {
+                script {
+                    def mvnHome = tool 'Maven3'
+                    withSonarQubeEnv('sonarqube') {
+                        sh """
+                		${mvnHome}/bin/mvn sonar:sonar \
+                  			-Dsonar.projectKey=springboot-app
+                		"""                
+                    }
+                }
+            }
+        }
 		
 		
 	}
