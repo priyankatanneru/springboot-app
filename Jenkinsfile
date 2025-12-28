@@ -30,12 +30,8 @@ pipeline {
                     withSonarQubeEnv('sonarqube') {
                         sh """
                 		${mvnHome}/bin/mvn sonar:sonar \
-                  			-Dsonar.projectKey=springboot-app \
-                  			-Dsonar.host.url=http://127.0.0.1:9000 \
-                  			-Dsonar.login=$SONAR_AUTH_TOKEN
-                		"""
-
-                    
+                  			-Dsonar.projectKey=springboot-app
+                		"""                
                     }
                 }
             }
